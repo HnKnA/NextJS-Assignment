@@ -43,6 +43,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta charSet="utf-8" />
+        <title>Assignment</title>
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <Script src="/js/modernizr.js" strategy="lazyOnload" />

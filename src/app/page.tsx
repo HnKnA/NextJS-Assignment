@@ -1,11 +1,16 @@
-"use client";
+import MasonrySection, {
+  MasonrySectionProps,
+} from "../components/MasonrySection";
 
-import MasonrySection from "../components/MasonrySection";
+export default async function Home() {
+  const response = await fetch("http://localhost:3000/api/post", {
+    cache: "no-store",
+  });
+  const data: MasonrySectionProps["data"] = await response.json();
 
-export default function Home() {
   return (
     <>
-      <MasonrySection />
+      <MasonrySection data={data} />
     </>
   );
 }
