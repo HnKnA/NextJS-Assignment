@@ -215,8 +215,8 @@
         controlNav: false,
         directionNav: true,
         smoothHeight: false,
-        slideshowSpeed: 7000,
-        animationSpeed: 600,
+        slideshowSpeed: 5000,
+        animationSpeed: 500,
         randomize: false,
         touch: true,
       });
@@ -228,8 +228,8 @@
         controlNav: true,
         directionNav: false,
         smoothHeight: false,
-        slideshowSpeed: 7000,
-        animationSpeed: 600,
+        slideshowSpeed: 5000,
+        animationSpeed: 500,
         randomize: false,
         touch: true,
         start: function (slider) {

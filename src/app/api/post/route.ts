@@ -49,3 +49,23 @@ export async function POST(request: Request) {
 
   return NextResponse.json({ success: true, data: newData });
 }
+
+export type PostDataItem = {
+  no: number;
+  feature: boolean;
+  image: string[];
+  alt: string;
+  date: string;
+  audio: string;
+  author: string;
+  type: string;
+  title: string;
+  category: string;
+  content: string;
+};
+
+export type MasonrySectionProps = {
+  data: PostDataItem[];
+  currentPage: number;
+  totalPages: number;
+};

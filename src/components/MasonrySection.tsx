@@ -1,24 +1,35 @@
-export type PostDataItem = {
-  no: number;
-  feature: boolean;
-  image: string[];
-  alt: string;
-  date: string;
-  audio: string;
-  author: string;
-  type: string;
-  title: string;
-  category: string;
-  content: string;
-};
+"use client";
 
-export type MasonrySectionProps = {
-  data: PostDataItem[];
-};
+import Link from "next/link";
+import { useEffect } from "react";
+import { MasonrySectionProps } from "@/app/api/post/route";
 
-export default function MasonrySection({ data }: MasonrySectionProps) {
+export default function MasonrySection({
+  data,
+  currentPage,
+  totalPages,
+}: MasonrySectionProps) {
   const featuredPosts = data.filter((item) => item.feature);
   const regularPosts = data.filter((item) => !item.feature);
+
+  useEffect(() => {
+    // Only initialize the slider if on the first page and featuredPosts exist
+    if (
+      currentPage === 1 &&
+      featuredPosts.length > 0 &&
+      typeof window !== "undefined"
+    ) {
+      const $ = window.jQuery;
+      if ($ && $.fn.flexslider) {
+        $("#featured-post-slider").flexslider({
+          animation: "slide",
+          controlNav: false,
+          directionNav: true,
+          slideshow: true,
+        });
+      }
+    }
+  }, [data, currentPage]);
 
   return (
     <section id="bricks">
@@ -26,41 +37,43 @@ export default function MasonrySection({ data }: MasonrySectionProps) {
         <div className="bricks-wrapper">
           <div className="grid-sizer"></div>
 
-          {/* Featured Posts Slider */}
-          <div className="brick entry featured-grid animate-this">
-            <div className="entry-content">
-              <div id="featured-post-slider" className="flexslider">
-                <ul className="slides">
-                  {featuredPosts.map((item) => (
-                    <li key={item.no}>
-                      <div className="featured-post-slide">
-                        <div
-                          className="post-background"
-                          style={{
-                            backgroundImage: `url('${item.image[0]}')`,
-                          }}
-                        ></div>
-                        <div className="overlay"></div>
-                        <div className="post-content">
-                          <ul className="entry-meta">
-                            <li>{item.date}</li>
-                            <li>
-                              <a href="#">{item.author}</a>
-                            </li>
-                          </ul>
-                          <h1 className="slide-title">
-                            <a href={item.type} title="">
-                              {item.title}
-                            </a>
-                          </h1>
+          {/* Featured Posts Slider - Only on the first page */}
+          {currentPage === 1 && featuredPosts.length > 0 && (
+            <div className="brick entry featured-grid animate-this">
+              <div className="entry-content">
+                <div id="featured-post-slider" className="flexslider">
+                  <ul className="slides">
+                    {featuredPosts.map((item) => (
+                      <li key={item.no}>
+                        <div className="featured-post-slide">
+                          <div
+                            className="post-background"
+                            style={{
+                              backgroundImage: `url('${item.image[0]}')`,
+                            }}
+                          ></div>
+                          <div className="overlay"></div>
+                          <div className="post-content">
+                            <ul className="entry-meta">
+                              <li>{item.date}</li>
+                              <li>
+                                <a href="#">{item.author}</a>
+                              </li>
+                            </ul>
+                            <h1 className="slide-title">
+                              <a href={item.type} title="">
+                                {item.title}
+                              </a>
+                            </h1>
+                          </div>
                         </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Regular Posts */}
           {regularPosts.map((item) => {
@@ -229,37 +242,42 @@ export default function MasonrySection({ data }: MasonrySectionProps) {
         </div>
       </div>
 
+      {/* Pagination */}
       <div className="row">
         <nav className="pagination">
-          <span className="page-numbers prev inactive">Prev</span>
-          <span className="page-numbers current">1</span>
-          <a href="#" className="page-numbers">
-            2
-          </a>
-          <a href="#" className="page-numbers">
-            3
-          </a>
-          <a href="#" className="page-numbers">
-            4
-          </a>
-          <a href="#" className="page-numbers">
-            5
-          </a>
-          <a href="#" className="page-numbers">
-            6
-          </a>
-          <a href="#" className="page-numbers">
-            7
-          </a>
-          <a href="#" className="page-numbers">
-            8
-          </a>
-          <a href="#" className="page-numbers">
-            9
-          </a>
-          <a href="#" className="page-numbers next">
-            Next
-          </a>
+          {currentPage > 1 ? (
+            <Link
+              href={`/?page=${currentPage - 1}`}
+              className="page-numbers prev"
+            >
+              Prev
+            </Link>
+          ) : (
+            <span className="page-numbers prev inactive">Prev</span>
+          )}
+
+          {Array.from({ length: totalPages }, (_, i) => (
+            <Link
+              key={i + 1}
+              href={`/?page=${i + 1}`}
+              className={`page-numbers ${
+                currentPage === i + 1 ? "current" : ""
+              }`}
+            >
+              {i + 1}
+            </Link>
+          ))}
+
+          {currentPage < totalPages ? (
+            <Link
+              href={`/?page=${currentPage + 1}`}
+              className="page-numbers next"
+            >
+              Next
+            </Link>
+          ) : (
+            <span className="page-numbers next inactive">Next</span>
+          )}
         </nav>
       </div>
     </section>
