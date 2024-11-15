@@ -1,6 +1,6 @@
 "use client";
 
-import MasonrySection from "../components/MasonrySection";
+import MasonrySection from "@/components/MasonrySection";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 

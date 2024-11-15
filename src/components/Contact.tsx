@@ -4,6 +4,19 @@ import { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { string, object } from "yup";
 
+// Define Yup validation schema
+const validationSchema = object({
+  name: string().required("Name is required"),
+  email: string().email("Invalid email format").required("Email is required"),
+  website: string()
+    .matches(
+      /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/,
+      "Invalid URL format"
+    )
+    .required("Website is required"),
+  message: string().required("Message is required"),
+});
+
 export default function Contact() {
   const [loading, setLoading] = useState(false);
   const initialValues = {
@@ -12,19 +25,6 @@ export default function Contact() {
     website: "",
     message: "",
   };
-
-  // Define Yup validation schema
-  const validationSchema = object({
-    name: string().required("Name is required"),
-    email: string().email("Invalid email format").required("Email is required"),
-    website: string()
-      .matches(
-        /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/,
-        "Invalid URL format"
-      )
-      .required("Website is required"),
-    message: string().required("Message is required"),
-  });
 
   const handleSubmit = async (
     values: typeof initialValues,
