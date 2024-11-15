@@ -12,7 +12,6 @@ export default function Home() {
   const pageSize = 7; // Set your page size here
 
   useEffect(() => {
-    // Fetch data based on current page
     const fetchData = async () => {
       const response = await fetch(
         `http://localhost:3000/api/post?page=${currentPage}&page_size=${pageSize}`,
@@ -27,10 +26,13 @@ export default function Home() {
   }, [currentPage]);
 
   return (
-    <MasonrySection
-      data={data}
-      currentPage={currentPage}
-      totalPages={totalPages}
-    />
+    <>
+      <title>Home</title>
+      <MasonrySection
+        data={data}
+        currentPage={currentPage}
+        totalPages={totalPages}
+      />
+    </>
   );
 }

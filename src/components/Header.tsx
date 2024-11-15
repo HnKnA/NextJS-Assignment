@@ -1,4 +1,10 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
 export default function Header() {
+  const pathname = usePathname();
+
   return (
     <header className="short-header">
       <div className="gradient-block"></div>
@@ -10,12 +16,16 @@ export default function Header() {
 
         <nav id="main-nav-wrap">
           <ul className="main-navigation sf-menu">
-            <li className="current">
+            <li className={pathname === "/" ? "current" : ""}>
               <a href="/" title="">
                 Home
               </a>
             </li>
-            <li className="has-children">
+            <li
+              className={`has-children ${
+                pathname.startsWith("/category") ? "current" : ""
+              }`}
+            >
               <a href="/category" title="">
                 Categories
               </a>
@@ -40,7 +50,11 @@ export default function Header() {
                 </li>
               </ul>
             </li>
-            <li className="has-children">
+            <li
+              className={`has-children ${
+                pathname.startsWith("/single") ? "current" : ""
+              }`}
+            >
               <a href="/single-standard" title="">
                 Blog
               </a>
@@ -59,17 +73,17 @@ export default function Header() {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className={pathname === "/style-guide" ? "current" : ""}>
               <a href="/style-guide" title="">
                 Styles
               </a>
             </li>
-            <li>
+            <li className={pathname === "/about" ? "current" : ""}>
               <a href="/about" title="">
                 About
               </a>
             </li>
-            <li>
+            <li className={pathname === "/contact" ? "current" : ""}>
               <a href="/contact" title="">
                 Contact
               </a>

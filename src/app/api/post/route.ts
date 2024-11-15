@@ -3,7 +3,14 @@ import fs from "fs";
 import path from "path";
 
 // Define the path to the JSON data file
-const dataFilePath = path.join(process.cwd(), "src", "app", "api", "post", "data.json");
+const dataFilePath = path.join(
+  process.cwd(),
+  "src",
+  "app",
+  "api",
+  "post",
+  "data.json"
+);
 
 // Utility function to read the JSON file
 const readDataFile = () => {

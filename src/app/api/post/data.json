@@ -3,40 +3,40 @@
     "no": 1,
     "feature": true,
     "image": ["/images/thumbs/featured/featured-1.jpg"],
-    "alt": "",
+    "alt": "default",
     "date": "September 06, 2016",
     "audio": "",
     "author": "Naruto Uzumaki",
     "type": "/single-standard",
     "title": "Minimalism Never Goes Out of Style",
-    "category": "",
-    "content": ""
+    "category": "Anime, html",
+    "content": "Explore a world of creativity, innovation, and inspiration with insightful articles, stunning visuals, and expert tips to enhance your journey."
   },
   {
     "no": 2,
     "feature": true,
     "image": ["/images/thumbs/featured/featured-2.jpg"],
-    "alt": "",
+    "alt": "default",
     "date": "August 29, 2016",
     "audio": "",
     "author": "Sasuke Uchiha",
     "type": "/single-standard",
     "title": "Enhancing Your Designs with Negative Space",
-    "category": "",
-    "content": ""
+    "category": "Photography, UI",
+    "content": "Explore a world of creativity, innovation, and inspiration with insightful articles, stunning visuals, and expert tips to enhance your journey."
   },
   {
     "no": 3,
     "feature": true,
     "image": ["/images/thumbs/featured/featured-3.jpg"],
-    "alt": "",
+    "alt": "default",
     "date": "August 27, 2016",
     "audio": "",
     "author": "Naruto Uzumaki",
     "type": "/single-standard",
     "title": "Music Album Cover Designs for Inspiration",
-    "category": "",
-    "content": ""
+    "category": "Music, UI",
+    "content": "Explore a world of creativity, innovation, and inspiration with insightful articles, stunning visuals, and expert tips to enhance your journey."
   },
   {
     "no": 4,

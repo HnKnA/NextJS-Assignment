@@ -13,21 +13,37 @@ export default function MasonrySection({
   const regularPosts = data.filter((item) => !item.feature);
 
   useEffect(() => {
-    // Only initialize the slider if on the first page and featuredPosts exist
-    if (
-      currentPage === 1 &&
-      featuredPosts.length > 0 &&
-      typeof window !== "undefined"
-    ) {
-      const $ = window.jQuery;
-      if ($ && $.fn.flexslider) {
-        $("#featured-post-slider").flexslider({
-          animation: "slide",
-          controlNav: false,
-          directionNav: true,
-          slideshow: true,
-        });
-      }
+    const $ = window.jQuery;
+    if ($ && $.fn.flexslider) {
+      $("#featured-post-slider").flexslider({
+        animation: "slide",
+        controlNav: false,
+        directionNav: true,
+        slideshow: true,
+      });
+      $(".post-slider").flexslider({
+        animation: "slide",
+        controlNav: true,
+        directionNav: false,
+        slideshow: true,
+        start: function (slider: any) {
+          if (typeof slider.container === "object") {
+            slider.container.on("click", function (e: any) {
+              if (!slider.animating) {
+                slider.flexAnimate(slider.getTarget("next"));
+              }
+            });
+          }
+
+          $(".bricks-wrapper").masonry("layout");
+        },
+      });
+    }
+
+    if ($ && $.fn.mediaelementplayer) {
+      $("audio").mediaelementplayer({
+        features: ["playpause", "progress", "tracks", "volume"],
+      });
     }
   }, [data, currentPage]);
 
@@ -121,6 +137,7 @@ export default function MasonrySection({
                         src={item.audio}
                         style={{ width: "100%", height: "42px" }}
                         controls
+                        preload="auto"
                       ></audio>
                     </div>
                   </div>

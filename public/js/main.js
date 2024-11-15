@@ -15,7 +15,7 @@
     },
     $WIN = $(window);
 
-  /* Preloader 
+  /* Preloader
    * -------------------------------------------------- */
   var ssPreloader = function () {
     $(document).ready(function () {
@@ -337,6 +337,24 @@
     });
   };
 
+  // Suppress specific Google Maps API errors and warnings
+  (function () {
+    const originalConsoleError = console.error;
+    const originalConsoleWarn = console.warn;
+
+    console.error = function (message, ...args) {
+      if (!message.includes("Google Maps JavaScript API error")) {
+        originalConsoleError.apply(console, [message, ...args]);
+      }
+    };
+
+    console.warn = function (message, ...args) {
+      if (!message.includes("Google Maps JavaScript API warning")) {
+        originalConsoleWarn.apply(console, [message, ...args]);
+      }
+    };
+  })();
+
   /* Map **
    * ------------------------------------------------------ */
   var ssGoogleMap = function () {
@@ -420,16 +438,6 @@
         },
         {
           featureType: "poi.government",
-          elementType: "geometry.fill",
-          stylers: [
-            { hue: main_color },
-            { visibility: "on" },
-            { lightness: brightness_value },
-            { saturation: saturation_value },
-          ],
-        },
-        {
-          featureType: "poi.sport_complex",
           elementType: "geometry.fill",
           stylers: [
             { hue: main_color },
@@ -533,46 +541,55 @@
       };
 
       // inizialize the map
-      var map = new google.maps.Map(
-        document.getElementById("map-container"),
-        map_options
-      );
+      var mapContainer = document.getElementById("map-container");
+      if (mapContainer) {
+        var map = new google.maps.Map(
+          document.getElementById("map-container"),
+          map_options
+        );
 
-      // add a custom marker to the map
-      var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(latitude, longitude),
-        map: map,
-        visible: true,
-        icon: marker_url,
-      });
-
-      // add custom buttons for the zoom-in/zoom-out on the map
-      function CustomZoomControl(controlDiv, map) {
-        // grap the zoom elements from the DOM and insert them in the map
-        var controlUIzoomIn = document.getElementById("map-zoom-in"),
-          controlUIzoomOut = document.getElementById("map-zoom-out");
-
-        controlDiv.appendChild(controlUIzoomIn);
-        controlDiv.appendChild(controlUIzoomOut);
-
-        // Setup the click event listeners and zoom-in or out according to the clicked element
-        google.maps.event.addDomListener(controlUIzoomIn, "click", function () {
-          map.setZoom(map.getZoom() + 1);
+        // add a custom marker to the map
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(latitude, longitude),
+          map: map,
+          visible: true,
+          icon: marker_url,
         });
-        google.maps.event.addDomListener(
-          controlUIzoomOut,
-          "click",
-          function () {
-            map.setZoom(map.getZoom() - 1);
-          }
+
+        // add custom buttons for the zoom-in/zoom-out on the map
+        function CustomZoomControl(controlDiv, map) {
+          // grap the zoom elements from the DOM and insert them in the map
+          var controlUIzoomIn = document.getElementById("map-zoom-in"),
+            controlUIzoomOut = document.getElementById("map-zoom-out");
+
+          controlDiv.appendChild(controlUIzoomIn);
+          controlDiv.appendChild(controlUIzoomOut);
+
+          // Setup the click event listeners and zoom-in or out according to the clicked element
+          google.maps.event.addDomListener(
+            controlUIzoomIn,
+            "click",
+            function () {
+              map.setZoom(map.getZoom() + 1);
+            }
+          );
+          google.maps.event.addDomListener(
+            controlUIzoomOut,
+            "click",
+            function () {
+              map.setZoom(map.getZoom() - 1);
+            }
+          );
+        }
+
+        var zoomControlDiv = document.createElement("div");
+        var zoomControl = new CustomZoomControl(zoomControlDiv, map);
+
+        // insert the zoom div on the top right of the map
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(
+          zoomControlDiv
         );
       }
-
-      var zoomControlDiv = document.createElement("div");
-      var zoomControl = new CustomZoomControl(zoomControlDiv, map);
-
-      // insert the zoom div on the top right of the map
-      map.controls[google.maps.ControlPosition.TOP_RIGHT].push(zoomControlDiv);
     }
   };
 

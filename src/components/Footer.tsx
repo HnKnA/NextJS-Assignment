@@ -72,8 +72,9 @@ export default function Footer() {
                     name="dEmail"
                     className="email"
                     id="mc-email"
-                    placeholder="Type &amp; press enter"
+                    placeholder="Type &amp; press enter (currently disabled)"
                     required
+                    readOnly
                   />
 
                   <input

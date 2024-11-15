@@ -44,7 +44,6 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <title>Assignment</title>
         <meta name="description" content="" />
         <meta name="author" content="" />
         <meta
@@ -56,6 +55,15 @@ export default function RootLayout({
         <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <Script src="/js/modernizr.js" strategy="lazyOnload" />
         <Script src="/js/pace.min.js" strategy="lazyOnload" />
+        <Script
+          src="https://maps.googleapis.com/maps/api/js?v=3.13&sensor=false"
+          strategy="beforeInteractive"
+          onLoad={() => {
+            console.log("Google Maps API loaded");
+          }}
+          async
+          defer
+        />
       </head>
       <body id="top">
         <Header />
