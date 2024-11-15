@@ -14,6 +14,7 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import { object, string } from "yup";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface LoginValues {
   username: string;
@@ -143,6 +144,18 @@ export default function Login() {
                     "Sign In"
                   )}
                 </Button>
+                <small
+                  style={{
+                    marginTop: "2.5rem",
+                    marginBottom: "0.5rem",
+                    display: "block",
+                    textAlign: "center",
+                    color: "#5e5d72",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Back to home page <Link href={"/"}>Home</Link>
+                </small>
               </Form>
             )}
           </Formik>

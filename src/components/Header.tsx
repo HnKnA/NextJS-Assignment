@@ -88,6 +88,11 @@ export default function Header() {
                 Contact
               </a>
             </li>
+            <li>
+              <a href="/admin" title="">
+                Admin
+              </a>
+            </li>
           </ul>
         </nav>
 
