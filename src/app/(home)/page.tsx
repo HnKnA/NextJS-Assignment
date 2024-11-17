@@ -1,38 +1,26 @@
 "use client";
 
+import MasonrySection from "@/components/MasonrySection";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
-import MasonrySection from "@/components/MasonrySection";
 
-async function fetchData(currentPage: number, pageSize: number) {
-  const response = await fetch(
-    `/api/post?page=${currentPage}&page_size=${pageSize}`,
-    { cache: "no-store" }
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return response.json();
-}
-
-function MasonryContent({
-  currentPage,
-  pageSize,
-}: {
-  currentPage: number;
-  pageSize: number;
-}) {
+export default function Home() {
+  const searchParams = useSearchParams();
   const [data, setData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const pageSize = 7; // Set your page size here
 
   useEffect(() => {
-    const loadData = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
-        const result = await fetchData(currentPage, pageSize);
+        const response = await fetch(
+          `/api/post?page=${currentPage}&page_size=${pageSize}`,
+          { cache: "no-store" }
+        );
+        const result = await response.json();
         setData(result.data);
         setTotalPages(result.totalPages);
       } catch (error) {
@@ -42,41 +30,27 @@ function MasonryContent({
       }
     };
 
-    loadData();
-  }, [currentPage, pageSize]);
-
-  if (loading) {
-    return (
-      <div className="loading-screen">
-        <h1 style={{ fontSize: "200px !important" }}>Loading...</h1>
-      </div>
-    );
-  }
+    fetchData();
+  }, [currentPage]);
 
   return (
-    <MasonrySection
-      data={data}
-      currentPage={currentPage}
-      totalPages={totalPages}
-    />
-  );
-}
-
-export default function Home() {
-  const searchParams = useSearchParams();
-  const currentPage = parseInt(searchParams.get("page") || "1", 10);
-  const pageSize = 7; // Set your page size here
-
-  return (
-    <Suspense
-      fallback={
-        <div className="loading-screen">
-          <h1 style={{ fontSize: "200px !important" }}>Loading...</h1>
-        </div>
-      }
-    >
+    <>
       <title>Home</title>
-      <MasonryContent currentPage={currentPage} pageSize={pageSize} />
-    </Suspense>
+      <Suspense
+        fallback={<h1 style={{ fontSize: "200px !important" }}>Loading...</h1>}
+      >
+        {loading ? (
+          <div className="loading-screen">
+            <h1 style={{ fontSize: "200px !important" }}>Loading...</h1>
+          </div>
+        ) : (
+          <MasonrySection
+            data={data}
+            currentPage={currentPage}
+            totalPages={totalPages}
+          />
+        )}
+      </Suspense>
+    </>
   );
 }
