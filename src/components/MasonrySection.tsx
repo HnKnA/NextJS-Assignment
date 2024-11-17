@@ -1,14 +1,40 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { MasonrySectionProps } from "@/app/api/post/route";
 
-export default function MasonrySection({
-  data,
-  currentPage,
-  totalPages,
-}: MasonrySectionProps) {
+export default function MasonrySection() {
+  const searchParams = useSearchParams();
+  const [data, setData] = useState<MasonrySectionProps["data"]>([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const pageSize = 7;
+
+  // Fetch data
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `/api/post?page=${currentPage}&page_size=${pageSize}`,
+          { cache: "no-store" }
+        );
+        const result = await response.json();
+        setData(result.data);
+        setTotalPages(result.totalPages);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [currentPage]);
+
   const featuredPosts = data.filter((item) => item.feature);
   const regularPosts = data.filter((item) => !item.feature);
 

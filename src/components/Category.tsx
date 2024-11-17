@@ -1,14 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { MasonrySectionProps } from "@/app/api/post/route";
 
-export default function Category({
-  data,
-  currentPage,
-  totalPages,
-}: MasonrySectionProps) {
+export default function Category() {
+  const searchParams = useSearchParams();
+  const [data, setData] = useState<MasonrySectionProps["data"]>([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const pageSize = 7; // Set your page size here
+
+  // Fetch data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `/api/post?page=${currentPage}&page_size=${pageSize}`,
+          { cache: "no-store" }
+        );
+        const result = await response.json();
+        setData(result.data);
+        setTotalPages(result.totalPages);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [currentPage]);
+
   useEffect(() => {
     const $ = window.jQuery;
     if ($ && $.fn.flexslider) {
