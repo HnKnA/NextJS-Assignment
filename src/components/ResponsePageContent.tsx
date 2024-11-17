@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
 import { useSearchParams } from "next/navigation";
-import "../../../globals.css";
 
 async function fetchResponseData(page = 1, pageSize = 7) {
   const res = await fetch(`/api/response?page=${page}&page_size=${pageSize}`);
