@@ -30,6 +30,8 @@ Access the application at `http://localhost:3000/`.
 
 ### Response list:
 
+<img width="943" alt="image" src="https://github.com/user-attachments/assets/f634c3ec-b68f-4de7-b7d8-50a23fc1cad3">
+
 - The response list when you are running locally and through the public hosted link will not be the same because the JSON file that stores the data for this application works differently in each environment.
 
 - For deployment, Heroku’s file system is designed to be ephemeral. Any changes made to the file system, such as creating or updating files (like your JSON file), are not saved when the dyno restarts, sleeps, or gets redeployed. When the dyno restarts, it resets the file system to the last deployed state. Any new or updated files created during runtime are lost.
@@ -44,7 +46,7 @@ Access the application at `http://localhost:3000/`.
 
 - Only the form from the Contact page can be submitted to collect users' responses.
 
-![image](https://github.com/user-attachments/assets/25b9641f-ee79-497e-9466-77dd0c51664d)
+<img width="623" alt="image" src="https://github.com/user-attachments/assets/75de7b3d-9417-44bf-a3c4-b10a576e0cd3">
 
 ### Loading screen:
 
@@ -56,7 +58,7 @@ Access the application at `http://localhost:3000/`.
 
 - Styling is also mostly the same as the original project.
 
-![image](https://github.com/user-attachments/assets/4cbd2afa-85da-40a2-87c6-9458dc10f522)
+<img width="948" alt="image" src="https://github.com/user-attachments/assets/00e8b738-a6f5-4bdf-837e-eccf139a4ee6">
 
 ### Search bar:
 
@@ -66,15 +68,17 @@ Access the application at `http://localhost:3000/`.
 
 ### Home page:
 
-![image](https://github.com/user-attachments/assets/f4715b4a-e327-4765-a4d9-0b60f25583be)
+<img width="949" alt="image" src="https://github.com/user-attachments/assets/25103621-29df-45a1-a2f5-7c8a809e7517">
 
 - Access the pagination bar for viewing appropriate pages.
 - Interaction with JS is the same as original application
 - Each page has 7 elements
 
+<img width="632" alt="image" src="https://github.com/user-attachments/assets/06b60179-bc47-4812-83f5-79dad4d41d27">
+
 ### Category page:
 
-![image](https://github.com/user-attachments/assets/ac6a3884-2ce0-405a-9218-9b5c364416b4)
+<img width="923" alt="image" src="https://github.com/user-attachments/assets/031c46a8-ff05-4ca9-a3df-ffeae47b5905">
 
 - Access the pagination bar for viewing appropriate pages.
 - Interaction with JS is the same as original application
@@ -82,14 +86,12 @@ Access the application at `http://localhost:3000/`.
 
 ### Blog page:
 
-![image](https://github.com/user-attachments/assets/49819f8a-2819-4886-bd2d-91f07983f3e8)
+<img width="824" alt="image" src="https://github.com/user-attachments/assets/10968c63-2a76-4323-bcfb-51fe1667b4b1">
 
 - There are currently 4 types of blogs
 - Interaction with JS is the same as original application
 
 ### Style page:
-
-![image](https://github.com/user-attachments/assets/4a76292b-9059-4e57-945c-90ca9df88ed6)
 
 - Interaction with JS is the same as original application
 
@@ -99,14 +101,20 @@ Access the application at `http://localhost:3000/`.
 
 ### Contact page:
 
+<img width="770" alt="image" src="https://github.com/user-attachments/assets/cb827430-8009-4019-b2db-07a74f5688da">
+
 - Interaction with JS is the same as original application
 - Submit users' responses through contact form (new feature).
 
 ### Admin login page:
 
+<img width="902" alt="image" src="https://github.com/user-attachments/assets/9be60829-6cd3-4ffe-bd1f-1645b643f423">
+
 - Fill in your username and password, exactly as `admin` and `password` respectively, to access the response list from both the deployment and development environments.
 
 ### Response list page:
+
+<img width="889" alt="image" src="https://github.com/user-attachments/assets/912691f2-c4b9-4330-a566-3a9516fa7989">
 
 - View the list of responses that were submitted through the contact form.
 - Access pagination bar for viewing appropriate pages
